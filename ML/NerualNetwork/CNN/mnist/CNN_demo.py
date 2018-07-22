@@ -23,11 +23,12 @@ dense = tf.layers.dense(pool_flat, 512, activation=tf.nn.relu)
 dropout = tf.layers.dropout(dense, rate=0.35)
 
 out = tf.layers.dense(dropout, 10)
+yPre = tf.nn.softmax(out)
 
-loss = tf.losses.sparse_softmax_cross_entropy(y, out)
+#loss = tf.losses.sparse_softmax_cross_entropy(y, yPre)
+loss = -tf.reduce_sum(y * tf.log(yPre))
 train = tf.train.AdamOptimizer().minimize(loss)
 
-yPre = tf.nn.softmax(out)
 
 accurate = tf.equal(tf.argmax(yPre, 1), tf.argmax(y, 1))
 result = tf.reduce_mean(tf.cast(accurate, tf.float32)) * 100
@@ -39,7 +40,7 @@ with tf.Session(config=conf) as session:
     session.run(tf.global_variables_initializer())
     for i in range(1000):
         X_batch, y_batch = mnist.train.next_batch(100)
-        session.run(train, feed_dict={x: X_batch, y: y_batch})
+        session.run(train, feed_dict={x: X_batch.reshape(100, 28, 28, 1), y: y_batch})
         if i % 50 == 0:
             print(session.run(result, feed_dict={x: X_test, y: y_test}))
 
