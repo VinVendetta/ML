@@ -31,6 +31,11 @@ safety = data.iloc[:, -2]
 evaluation = data.iloc[:, -1]
 
 
+font = {'family' : 'serif',
+        'color'  : 'red',
+        'weight' : 'normal',
+        'size'   : 12,}
+
 # buying : evaluation
 ax = plt.subplot("221")
 evaluationMeans = [data.loc[lambda df: df.buying == int("%d" % i), 
@@ -38,8 +43,8 @@ evaluationMeans = [data.loc[lambda df: df.buying == int("%d" % i),
 
 plt.bar(range(1, 5), evaluationMeans, 0.35)
 plt.xticks(range(1, 5), ["vhigh", "high", "med", "low"][::-1])
-plt.xlabel("buying")
-plt.ylabel("Means of evaluation")
+plt.xlabel("buying", fontdict=font)
+plt.ylabel("Means of evaluation", fontdict=font)
 ax.spines['top'].set_visible(False)
 ax.spines['right'].set_visible(False)
 for x, y in zip(range(1, 5), evaluationMeans):
@@ -52,8 +57,8 @@ evaluationMeans = [data.loc[lambda df: df.maint == int("%d" % i),
 
 plt.bar(range(1, 5), evaluationMeans, 0.35)
 plt.xticks(range(1, 5), ["vhigh", "high", "med", "low"][::-1])
-plt.xlabel("maint")
-plt.ylabel("Means of evaluation")
+plt.xlabel("maint", fontdict=font)
+plt.ylabel("Means of evaluation", fontdict=font)
 ax.spines['top'].set_visible(False)
 ax.spines['right'].set_visible(False)
 for x, y in zip(range(1, 5), evaluationMeans):
@@ -68,8 +73,8 @@ evaluationMeans = [data.loc[lambda df: df.lug_boot == int("%d" % i),
 
 plt.bar(range(1, 4), evaluationMeans, 0.35)
 plt.xticks(range(1, 5), ["high", "med", "low"][::-1])
-plt.xlabel("lug_boot")
-plt.ylabel("Means of evaluation")
+plt.xlabel("lug_boot", fontdict=font)
+plt.ylabel("Means of evaluation", fontdict=font)
 ax.spines['top'].set_visible(False)
 ax.spines['right'].set_visible(False)
 for x, y in zip(range(1, 5), evaluationMeans):
@@ -82,8 +87,8 @@ ax = plt.subplot("224")
 evaluationMeans = [data.loc[lambda df: df.safety == int("%d" % i), lambda df: df.columns[-1]].mean() for i in range(1, 4)]
 plt.bar(range(1, 4), evaluationMeans, 0.35)
 plt.xticks(range(1, 5), ["high", "med", "low"][::-1])
-plt.xlabel("safety")
-plt.ylabel("Means of evaluation")
+plt.xlabel("safety", fontdict=font)
+plt.ylabel("Means of evaluation", fontdict=font)
 ax.spines['top'].set_visible(False)
 ax.spines['right'].set_visible(False)
 for x, y in zip(range(1, 5), evaluationMeans):
